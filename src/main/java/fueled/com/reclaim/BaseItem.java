@@ -22,13 +22,12 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
     /**
      * Constructor to use when creating a new Item.
      *
-     * @param layoutId            the layout resource id
      * @param data                the data object for the Item
      * @param itemHandlerProvider the object responsible for providing the correct handler for this
      *                            item
      */
-    public BaseItem(@LayoutRes int layoutId, T1 data, ItemHandlerProvider<T2> itemHandlerProvider) {
-        this.layoutId = layoutId;
+    public BaseItem(T1 data, ItemHandlerProvider<T2> itemHandlerProvider) {
+        this.layoutId = getLayoutId();
         this.data = data;
         this.itemHandlerProvider = itemHandlerProvider;
     }
@@ -45,6 +44,15 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
     public void setPositionInAdapter(int positionInAdapter) {
         this.positionInAdapter = positionInAdapter;
     }
+
+    /**
+     * Interface that define the layout of each item
+     *
+     * @return the layout id to be used by the item
+     */
+    abstract public
+    @LayoutRes
+    int getLayoutId();
 
     /**
      * Let the caller know the item is the last one in the adapter
