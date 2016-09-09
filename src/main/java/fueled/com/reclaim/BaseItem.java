@@ -87,7 +87,7 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      *
      * @return the item type for this item.
      */
-    public abstract ItemType getType();
+    public abstract Enum getType();
 
     /**
      * Called by the {@link ItemsViewAdapter} to bind the provided
