@@ -15,16 +15,14 @@ import java.util.List;
  */
 public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    final private ItemViewTypeAdapter itemViewTypeAdapter;
     private Context context;
     private List<BaseItem> items;
 
-    public ItemsViewAdapter(Context context, ItemViewTypeAdapter itemViewTypeAdapter) {
-        this(context, itemViewTypeAdapter, new ArrayList<BaseItem>());
+    public ItemsViewAdapter(Context context) {
+        this(context, new ArrayList<BaseItem>());
     }
 
-    public ItemsViewAdapter(Context context, ItemViewTypeAdapter itemViewTypeAdapter, List<BaseItem> items) {
-        this.itemViewTypeAdapter = itemViewTypeAdapter;
+    public ItemsViewAdapter(Context context, List<BaseItem> items) {
         this.context = context;
         this.items = items;
     }
@@ -110,30 +108,19 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        Class<? extends BaseItem> itemClass = getType(viewType);
-
-        if (itemClass == null || itemClass == BaseItem.class) {
-            return new EmptyViewHolder(viewGroup);
-        }
 
         for (BaseItem item : items) {
-            if (item.getClass().isAssignableFrom(itemClass)) {
+            if (item.getType().ordinal() == viewType) {
                 View view = LayoutInflater.from(context).inflate(item.layoutId, viewGroup, false);
 
                 return item.onCreateViewHolder(view);
             }
         }
 
-        return null;
+        return new EmptyViewHolder(viewGroup);
+
     }
 
-    private Class<? extends BaseItem> getType(int viewType) {
-        if (itemViewTypeAdapter != null) {
-            return ((ItemType) itemViewTypeAdapter.getType(viewType)).getItemClass();
-        } else {
-            return null;
-        }
-    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -143,7 +130,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position).getType().getValue();
+        return items.get(position).getType().ordinal();
     }
 
     @Override
