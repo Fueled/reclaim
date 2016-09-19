@@ -3,7 +3,21 @@ Reduce the boilerplate code that comes with using RecyclerView, decouple the cod
 
 #How to
 ##Install
-TDB
+Add it in your root build.gradle at the end of repositories:
+```groovy
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
+Then add the dependency to the application module:
+```groovy
+	dependencies {
+		compile 'com.github.fueled:reclaim:1.0.0'
+	}
+```
 
 ###1.Setup adapter
 Have your RecyclerView use for adapter [ItemViewAdapter](reclaim/src/main/java/com/fueled/reclaim/ItemsViewAdapter.java).
