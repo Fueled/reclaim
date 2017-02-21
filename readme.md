@@ -1,4 +1,5 @@
-#Reclaim
+#Reclaim [![](https://jitpack.io/v/Fueled/reclaim.svg)](https://jitpack.io/#Fueled/reclaim)
+
 Reduce the boilerplate code that comes with using RecyclerView, decouple the code between the view, the adapter and the item.
 
 #How to
