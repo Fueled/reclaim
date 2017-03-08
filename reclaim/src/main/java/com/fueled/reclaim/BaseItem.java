@@ -12,11 +12,11 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
     protected int layoutId;
     protected ItemHandlerProvider<T2> itemHandlerProvider;
 
-    T1 data;
-    T3 viewHolder;
+    private T1 data;
+    private T3 viewHolder;
 
-    int positionInAdapter;
-    boolean isLastItem;
+    private int positionInAdapter;
+    private boolean isLastItem;
 
 
     /**
@@ -139,7 +139,12 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      * @return the view holder currently attached to this item
      */
     public T3 getViewHolder() {
-        return viewHolder;
+        if (viewHolder != null && viewHolder.getItemBoundTo() == getPositionInAdapter()) {
+            // Make sure the view holder is still bound to this item before returning it.
+            return viewHolder;
+        }
+
+        return null;
     }
 
 }
