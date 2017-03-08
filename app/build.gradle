@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    compileSdkVersion compileSdk
+    buildToolsVersion buildTools
 
     defaultConfig {
-        applicationId "com.fueled.reclaim"
-        minSdkVersion 15
-        targetSdkVersion 24
+        applicationId appId
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
         versionCode 1
         versionName "1.0"
     }
@@ -23,7 +23,9 @@ dependencies {
     compile project(':reclaim')
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
+
+    testCompile testLibraries.junit
+
+    compile libraries.appCompat
+    compile libraries.recyclerView
 }
