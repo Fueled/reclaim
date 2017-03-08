@@ -5,12 +5,12 @@ group = 'com.github.fueled'
 version = '1.0.0'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    compileSdkVersion compileSdk
+    buildToolsVersion buildTools
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 24
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
         versionCode 100
         versionName "1.0.0"
     }
@@ -33,10 +33,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile libraries.recyclerView
 
     //tests
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'org.hamcrest:hamcrest-library:1.4-atlassian-1'
+    testCompile testLibraries.junit
+    testCompile testLibraries.mockito
+    testCompile testLibraries.hamcrest
 }

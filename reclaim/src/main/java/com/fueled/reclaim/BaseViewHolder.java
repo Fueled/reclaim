@@ -9,8 +9,17 @@ import android.view.View;
  */
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
+    private int itemBoundTo;
+
     public BaseViewHolder(View view) {
         super(view);
     }
 
+    public int getItemBoundTo() {
+        return itemBoundTo;
+    }
+
+    public void setItemBoundTo(int itemBoundTo) {
+        this.itemBoundTo = itemBoundTo;
+    }
 }

@@ -125,6 +125,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     @SuppressWarnings("unchecked")
     public void onBindViewHolder(BaseViewHolder holder, int position) {
+        holder.setItemBoundTo(position);
         items.get(position).onBindViewHolder(holder);
     }
 
