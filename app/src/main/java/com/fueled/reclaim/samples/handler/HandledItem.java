@@ -46,7 +46,7 @@ public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, Sa
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getitemHandler().goToActivity(activity);
+                getItemHandler().goToActivity(activity);
             }
         });
     }
