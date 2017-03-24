@@ -115,7 +115,7 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      *
      * @param data The new Data
      */
-    public void setitemData(T1 data) {
+    public void setItemData(T1 data) {
         this.data = data;
     }
 
@@ -124,7 +124,7 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      *
      * @return item handler
      */
-    public T2 getitemHandler() {
+    public T2 getItemHandler() {
         T2 itemHandler = null;
         if (itemHandlerProvider != null) {
             itemHandler = itemHandlerProvider.getItemHandler();
@@ -146,5 +146,4 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
 
         return null;
     }
-
 }

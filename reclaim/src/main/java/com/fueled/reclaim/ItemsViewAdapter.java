@@ -44,7 +44,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param position the position at which to add the first item in the list
      * @param items    the list of item to be added
      */
-    public void additemsList(int position, List<? extends BaseItem> items) {
+    public void addItemsList(int position, List<? extends BaseItem> items) {
         this.items.addAll(position, items);
         notifyDataSetChanged();
     }
@@ -55,7 +55,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param item the item to be added
      */
     public void addItem(BaseItem item) {
-        additem(items.size(), item);
+        addItem(items.size(), item);
     }
 
     /**
@@ -64,7 +64,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param position the position at which to add the item in the list
      * @param item     the item to be added
      */
-    public void additem(int position, BaseItem item) {
+    public void addItem(int position, BaseItem item) {
         item.setPositionInAdapter(position);
         items.add(position, item);
         notifyItemInserted(position);
@@ -77,11 +77,11 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      */
     public void removeItemAt(int position) {
         items.remove(position);
-        updateitemsPosition();
+        updateItemsPosition();
         notifyItemRemoved(position);
     }
 
-    private void updateitemsPosition() {
+    private void updateItemsPosition() {
         for (int i = 0; i < items.size(); i++) {
             BaseItem item = items.get(i);
             item.setPositionInAdapter(i);
@@ -102,7 +102,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param position position of the item to be returned
      * @return the item at the specified position in the adapter
      */
-    public BaseItem getitem(int position) {
+    public BaseItem getItem(int position) {
         return items.get(position);
     }
 
@@ -118,9 +118,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         return new EmptyViewHolder(viewGroup);
-
     }
-
 
     @Override
     @SuppressWarnings("unchecked")
