@@ -50,10 +50,10 @@ public class HearderFooterActivity extends AppCompatActivity {
 
     private List<PlanetItem> createListData() {
         ArrayList<PlanetItem> list = new ArrayList<>();
-        list.add(new PlanetItem("Venus"));
-        list.add(new PlanetItem("Mercury"));
-        list.add(new PlanetItem("Earth"));
-        list.add(new PlanetItem("Mars"));
+        list.add(new PlanetItem("Venus", 0xF44336, null));
+        list.add(new PlanetItem("Mercury", 0xE91E63, null));
+        list.add(new PlanetItem("Earth", 0x673AB7, null));
+        list.add(new PlanetItem("Mars", 0x2196F3, null));
         return list;
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/planet_name_text_view"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_marginBottom="10dp"
+    android:padding="16dp"
+    android:textColor="@android:color/white"
+    android:textSize="18sp"
+    android:gravity="center_vertical"/>
