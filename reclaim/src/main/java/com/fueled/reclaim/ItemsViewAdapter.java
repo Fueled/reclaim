@@ -50,6 +50,17 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     /**
+     * Removes all items inside the adapter and add new items from the specified list.
+     *
+     * @param items the list of item to be added
+     */
+    public void setItems(List<? extends BaseItem> items) {
+        this.items.clear();
+        this.items.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    /**
      * Add item to the adapter.
      *
      * @param item the item to be added
