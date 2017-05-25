@@ -33,8 +33,10 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param items the list of items to be added
      */
     public void addItemsList(List<? extends BaseItem> items) {
+        int startSize = getItemCount();
+
         this.items.addAll(items);
-        notifyDataSetChanged();
+        notifyItemRangeChanged(startSize, items.size());
     }
 
     /**
@@ -46,7 +48,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      */
     public void addItemsList(int position, List<? extends BaseItem> items) {
         this.items.addAll(position, items);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(position, items.size());
     }
 
     /**
@@ -54,10 +56,28 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      *
      * @param items the list of item to be added
      */
-    public void setItems(List<? extends BaseItem> items) {
+    public void replaceItems(List<? extends BaseItem> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
+    }
+
+    /**
+     * Removes all items inside the adapter and add new items from the specified list.
+     *
+     * @param items        the list of item to be added
+     * @param useDiffCheck indicates whether {@link DiffChecker} should be used to only apply needed
+     *                     changes.
+     */
+    public void replaceItems(List<? extends BaseItem> items, boolean useDiffCheck) {
+        if (!useDiffCheck) {
+            replaceItems(items);
+        } else {
+            DiffChecker.calculateDiff(this.items, items)
+                    .dispatchUpdatesTo(this);
+            this.items.clear();
+            this.items.addAll(items);
+        }
     }
 
     /**
@@ -76,7 +96,6 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param item     the item to be added
      */
     public void addItem(int position, BaseItem item) {
-        item.setPositionInAdapter(position);
         items.add(position, item);
         notifyItemInserted(position);
     }
@@ -88,15 +107,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      */
     public void removeItemAt(int position) {
         items.remove(position);
-        updateItemsPosition();
         notifyItemRemoved(position);
-    }
-
-    private void updateItemsPosition() {
-        for (int i = 0; i < items.size(); i++) {
-            BaseItem item = items.get(i);
-            item.setPositionInAdapter(i);
-        }
     }
 
     /**
@@ -135,7 +146,7 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @SuppressWarnings("unchecked")
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         holder.setItemBoundTo(position);
-        items.get(position).onBindViewHolder(holder);
+        items.get(position).onBindViewHolder(holder, position);
     }
 
     @Override
