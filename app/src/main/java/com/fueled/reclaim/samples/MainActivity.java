@@ -18,10 +18,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    RecyclerView recyclerView;
-    ItemsViewAdapter adapter;
-
+    private RecyclerView recyclerView;
+    private ItemsViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,30 +34,27 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+
         //set adapter
         adapter = new ItemsViewAdapter(this);
+        adapter.replaceItems(createListData());
 
-        for (String planet : createListData()) {
-            adapter.addItem(new PlanetItem(planet, null));
-        }
         recyclerView.setAdapter(adapter);
     }
 
-
-    private List<String> createListData() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Venus");
-        list.add("Mercury");
-        list.add("Earth");
-        list.add("Mars");
+    private List<PlanetItem> createListData() {
+        ArrayList<PlanetItem> list = new ArrayList<>();
+        list.add(new PlanetItem("Venus"));
+        list.add(new PlanetItem("Mercury"));
+        list.add(new PlanetItem("Earth"));
+        list.add(new PlanetItem("Mars"));
         return list;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);//Menu Resource, Menu
+        getMenuInflater().inflate(R.menu.menu_main, menu); //Menu Resource, Menu
         return true;
     }
 

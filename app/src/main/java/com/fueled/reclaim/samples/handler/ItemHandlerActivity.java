@@ -14,16 +14,16 @@ import com.fueled.reclaim.samples.hearder.FooterItem;
 import com.fueled.reclaim.samples.hearder.HeaderItem;
 import com.fueled.reclaim.samples.hearder.HearderFooterActivity;
 
-
 /**
  * Sample activity that illustrate the usage of ItemHandlers.
  * Created by julienFueled on 9/12/16.
  * Copyright (c) 2016 Fueled. All rights reserved.
  */
-public class ItemHandlerActivity extends AppCompatActivity implements ItemHandlerProvider<SampleHandler>, SampleHandler {
-    RecyclerView recyclerView;
-    ItemsViewAdapter adapter;
+public class ItemHandlerActivity extends AppCompatActivity implements
+        ItemHandlerProvider<SampleHandler>, SampleHandler {
 
+    private RecyclerView recyclerView;
+    private ItemsViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +41,10 @@ public class ItemHandlerActivity extends AppCompatActivity implements ItemHandle
         //set adapter
         adapter = new ItemsViewAdapter(this);
 
-        adapter.addItem(new HeaderItem("Header YEAH!", null));
+        adapter.addItem(new HeaderItem("Header YEAH!"));
         adapter.addItem(new HandledItem(MainActivity.class, this));
         adapter.addItem(new HandledItem(HearderFooterActivity.class, this));
-        adapter.addItem(new FooterItem("Footer OOOOOH", null));
+        adapter.addItem(new FooterItem("Footer OOOOOH"));
         recyclerView.setAdapter(adapter);
     }
 
