@@ -96,7 +96,8 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      *
      * @param viewHolder the view holder to bind to this item
      */
-    public void onBindViewHolder(T3 viewHolder) {
+    public void onBindViewHolder(T3 viewHolder, int positionInAdapter) {
+        this.positionInAdapter = positionInAdapter;
         this.viewHolder = viewHolder;
         updateItemViews();
     }
@@ -145,5 +146,36 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
         }
 
         return null;
+    }
+
+    /**
+     * Called by the DiffChecker to decide whether two object represent the same Item.
+     * <p>
+     * For example, if your items have unique ids, this method should check their id equality.
+     *
+     * @param newItem the other item to be checked.
+     * @return True if the two items represent the same object or false if they are different.
+     */
+    public boolean isTheSame(BaseItem newItem) {
+        return false;
+    }
+
+    /**
+     * Called by the DiffChecker when it wants to check whether two items have the same data.
+     * DiffChecker uses this information to detect if the contents of an item has changed.
+     * <p>
+     * DiffChecker uses this method to check equality instead of {@link Object#equals(Object)}
+     * so that you can change its behavior depending on your UI.
+     * <p>
+     * You should return whether the items' visual representations are the same.
+     * <p>
+     * This method is called only if {@link #isTheSame(BaseItem)} returns
+     * {@code true} for these items.
+     *
+     * @param newItem the other item to be checked.
+     * @return True if the contents of the items are the same or false if they are different.
+     */
+    public boolean isContentsTheSame(BaseItem newItem) {
+        return false;
     }
 }

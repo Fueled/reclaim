@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import com.fueled.reclaim.BaseItem;
 import com.fueled.reclaim.BaseViewHolder;
-import com.fueled.reclaim.ItemHandlerProvider;
 
 
 /**
@@ -18,11 +17,10 @@ public class PlanetItem extends BaseItem<String, Void, PlanetItem.ViewHolder> {
     /**
      * Constructor to use when creating a new card.
      *
-     * @param data                the data object for the card
-     * @param itemHandlerProvider the object responsible for providing the correct handler for this
+     * @param data the data object for the card
      */
-    public PlanetItem(String data, ItemHandlerProvider<Void> itemHandlerProvider) {
-        super(data, itemHandlerProvider);
+    public PlanetItem(String data) {
+        super(data, null);
     }
 
     @Override

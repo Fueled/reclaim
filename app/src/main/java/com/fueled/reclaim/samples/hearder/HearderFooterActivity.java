@@ -20,9 +20,8 @@ import java.util.List;
  */
 public class HearderFooterActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    ItemsViewAdapter adapter;
-
+    private RecyclerView recyclerView;
+    private ItemsViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +35,25 @@ public class HearderFooterActivity extends AppCompatActivity {
         super.onResume();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
+
         recyclerView.setLayoutManager(manager);
         //set adapter
         adapter = new ItemsViewAdapter(this);
 
-        adapter.addItem(new HeaderItem("Header YEAH!", null));
-        for (String planet : createListData()) {
-            adapter.addItem(new PlanetItem(planet, null));
-        }
+        adapter.addItem(new HeaderItem("Header YEAH!"));
 
-        adapter.addItem(new FooterItem("Footer OOOOOH", null));
+        adapter.addItemsList(createListData());
+
+        adapter.addItem(new FooterItem("Footer OOOOOH"));
         recyclerView.setAdapter(adapter);
     }
 
-
-    private List<String> createListData() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Venus");
-        list.add("Mercury");
-        list.add("Earth");
-        list.add("Mars");
+    private List<PlanetItem> createListData() {
+        ArrayList<PlanetItem> list = new ArrayList<>();
+        list.add(new PlanetItem("Venus"));
+        list.add(new PlanetItem("Mercury"));
+        list.add(new PlanetItem("Earth"));
+        list.add(new PlanetItem("Mars"));
         return list;
     }
 }

@@ -5,10 +5,8 @@ import android.widget.TextView;
 
 import com.fueled.reclaim.BaseItem;
 import com.fueled.reclaim.BaseViewHolder;
-import com.fueled.reclaim.ItemHandlerProvider;
 import com.fueled.reclaim.samples.ExampleType;
 import com.fueled.reclaim.samples.R;
-
 
 /**
  * Sample item to be used as a footer in a recyclerView.
@@ -20,11 +18,10 @@ public class FooterItem extends BaseItem<String, Void, FooterItem.ViewHolder> {
     /**
      * Constructor to use when creating a new card.
      *
-     * @param data                the data object for the card
-     * @param itemHandlerProvider the object responsible for providing the correct handler for this
+     * @param data the data object for the card
      */
-    public FooterItem(String data, ItemHandlerProvider<Void> itemHandlerProvider) {
-        super(data, itemHandlerProvider);
+    public FooterItem(String data) {
+        super(data, null);
     }
 
     @Override
