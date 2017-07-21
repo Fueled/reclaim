@@ -1,9 +1,9 @@
-#Reclaim [![](https://jitpack.io/v/Fueled/reclaim.svg)](https://jitpack.io/#Fueled/reclaim)
+# Reclaim [![](https://jitpack.io/v/Fueled/reclaim.svg)](https://jitpack.io/#Fueled/reclaim)
 
 Reduce the boilerplate code that comes with using RecyclerView, decouple the code between the view, the adapter and the item.
 
-#How to
-##Install
+# How to
+## Install
 Add it in your root build.gradle at the end of repositories:
 ```groovy
 	allprojects {
@@ -20,7 +20,7 @@ Then add the dependency to the application module:
 	}
 ```
 
-###1.Setup adapter
+### 1.Setup adapter
 Have your RecyclerView use for adapter [ItemViewAdapter](reclaim/src/main/java/com/fueled/reclaim/ItemsViewAdapter.java).
 
 ```java
@@ -31,7 +31,7 @@ adapter = new ItemsViewAdapter(this);
 recyclerView.setAdapter(adapter);
 ```
 
-###2.Create an item object
+### 2.Create an item object
 The design, implementation and interation with items of your RecyclerView are handled through the [BaseItem](reclaim/src/main/java/com/fueled/reclaim/BaseItem.java).
 BastItem class has 3 parameters:
 
@@ -80,10 +80,10 @@ public class PlanetItem extends BaseItem<String, Void, PlanetItem.ViewHolder> {
 }
 ```
 
-###3.Add the item object to the adapter
+### 3.Add the item object to the adapter
 Simple add instances of your item object with [ItemViewAdapter.addItem(BaseItem item)](reclaim/src/main/java/com/fueled/reclaim/ItemsViewAdapter.java#L67) or [ItemViewAdapter.addItemsList(List<? extends BaseItem> items)](reclaim/src/main/java/com/fueled/reclaim/ItemsViewAdapter.java#L35)
 
-```JAVA
+```java
 adapter = new ItemsViewAdapter(this);
 recyclerView.setAdapter(adapter);
 for (String planet : createListData()) {
@@ -91,12 +91,12 @@ for (String planet : createListData()) {
 }
 ```
 
-##Using multiple Item types
+## Using multiple Item types
 Because of the strong decoupling introduced by the Reclaim, it is easy to use multiple item class and implement [header/footer](app/src/main/java/com/fueled/reclaim/samples/hearder), complex menu etc...
 
 Simple create items as explained above, and add them to the adapter at the position they should be displayed.
 
-```JAVA
+```java
 adapter = new ItemsViewAdapter(this);
 
 adapter.addItem(new HeaderItem("Header YEAH!", null));
@@ -108,14 +108,14 @@ adapter.addItem(new FooterItem("Footer OOOOOH", null));
 recyclerView.setAdapter(adapter);
 ```
 
-##Interaction between item object and other components
+## Interaction between item object and other components
 More often then not, each item of a list contains interation with other component of your application; starting a new Activity, triggering an HTTP call, updating other UI component etc...
 
 In that you can pass a `ItemHandler` object to your item. This `ItemHandler` can be an Activity, a Fragment, a helper class etc...
 
 **Caution: the object passed to the construtor of your item needs to implement [ItemHandlerProvider](reclaim/src/main/java/com/fueled/reclaim/ItemHandlerProvider.java) and not the ItemHandler itself.**
 
-```JAVA
+```java
 public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, SampleHandler, HandledItem.ViewHolder> {
     public HandledItem(Class<? extends AppCompatActivity> data, ItemHandlerProvider<SampleHandler> itemHandlerProvider) {
         super(data, itemHandlerProvider);
@@ -163,7 +163,7 @@ public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, Sa
 ```
 in the activity:
 
-```JAVA
+```java
 public class ItemHandlerActivity extends AppCompatActivity implements ItemHandlerProvider<SampleHandler>, SampleHandler {
     RecyclerView recyclerView;
     ItemsViewAdapter adapter;
@@ -205,7 +205,7 @@ public class ItemHandlerActivity extends AppCompatActivity implements ItemHandle
 }
 ```
 
-#License
+# License
 
     Copyright 2016 Fueled
 
