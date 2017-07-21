@@ -50,9 +50,8 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      *
      * @return the layout id to be used by the item
      */
-    abstract public
     @LayoutRes
-    int getLayoutId();
+    abstract public int getLayoutId();
 
     /**
      * Let the caller know the item is the last one in the adapter
@@ -96,8 +95,7 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      *
      * @param viewHolder the view holder to bind to this item
      */
-    public void onBindViewHolder(T3 viewHolder, int positionInAdapter) {
-        this.positionInAdapter = positionInAdapter;
+    public void onBindViewHolder(T3 viewHolder) {
         this.viewHolder = viewHolder;
         updateItemViews();
     }
@@ -140,7 +138,7 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      * @return the view holder currently attached to this item
      */
     public T3 getViewHolder() {
-        if (viewHolder != null && viewHolder.getItemBoundTo() == getPositionInAdapter()) {
+        if (viewHolder != null && viewHolder.getAdapterPosition() == getPositionInAdapter()) {
             // Make sure the view holder is still bound to this item before returning it.
             return viewHolder;
         }
