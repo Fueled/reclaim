@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fueled.reclaim.ItemsViewAdapter;
-import com.fueled.reclaim.samples.handler.ItemHandlerActivity;
+import com.fueled.reclaim.samples.handler.ItemPresenterActivity;
 import com.fueled.reclaim.samples.hearder.HearderFooterActivity;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.handlerMenu:
-                startActivity(new Intent(this, ItemHandlerActivity.class));
+                startActivity(new Intent(this, ItemPresenterActivity.class));
                 finish();
                 return true;
             default:

@@ -42,8 +42,8 @@ BastItem class has 3 parameters:
 ```java
 public class PlanetItem extends BaseItem<String, Void, PlanetItem.ViewHolder> {
 
-    public PlanetItem(String data, ItemHandlerProvider<Void> itemHandlerProvider) {
-        super(data, itemHandlerProvider);
+    public PlanetItem(String data, ItemHandlerProvider<Void> itemPresenterProvider) {
+        super(data, itemPresenterProvider);
     }
 
     @Override
@@ -117,8 +117,8 @@ In that you can pass a `ItemHandler` object to your item. This `ItemHandler` can
 
 ```java
 public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, SampleHandler, HandledItem.ViewHolder> {
-    public HandledItem(Class<? extends AppCompatActivity> data, ItemHandlerProvider<SampleHandler> itemHandlerProvider) {
-        super(data, itemHandlerProvider);
+    public HandledItem(Class<? extends AppCompatActivity> data, ItemHandlerProvider<SampleHandler> itemPresenterProvider) {
+        super(data, itemPresenterProvider);
     }
 
     @Override
