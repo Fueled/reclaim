@@ -42,8 +42,8 @@ BastItem class has 3 parameters:
 ```java
 public class PlanetItem extends BaseItem<String, Void, PlanetItem.ViewHolder> {
 
-    public PlanetItem(String data, ItemHandlerProvider<Void> itemHandlerProvider) {
-        super(data, itemHandlerProvider);
+    public PlanetItem(String data, ItemPresenterProvider<Void> itemPresenterProvider) {
+        super(data, itemPresenterProvider);
     }
 
     @Override
@@ -111,14 +111,14 @@ recyclerView.setAdapter(adapter);
 ## Interaction between item object and other components
 More often then not, each item of a list contains interation with other component of your application; starting a new Activity, triggering an HTTP call, updating other UI component etc...
 
-In that you can pass a `ItemHandler` object to your item. This `ItemHandler` can be an Activity, a Fragment, a helper class etc...
+In that you can pass a `ItemPresenter` object to your item. This `ItemPresenter` can be an Activity, a Fragment, a helper class etc...
 
-**Caution: the object passed to the construtor of your item needs to implement [ItemHandlerProvider](reclaim/src/main/java/com/fueled/reclaim/ItemHandlerProvider.java) and not the ItemHandler itself.**
+**Caution: the object passed to the construtor of your item needs to implement [ItemPresenterProvider](reclaim/src/main/java/com/fueled/reclaim/ItemPresenterProvider.java) and not the ItemPresenter itself.**
 
 ```java
 public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, SampleHandler, HandledItem.ViewHolder> {
-    public HandledItem(Class<? extends AppCompatActivity> data, ItemHandlerProvider<SampleHandler> itemHandlerProvider) {
-        super(data, itemHandlerProvider);
+    public HandledItem(Class<? extends AppCompatActivity> data, ItemPresenterProvider<SampleHandler> itemPresenterProvider) {
+        super(data, itemPresenterProvider);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, Sa
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getitemHandler().goToActivity(activity);
+                getitemPresenter().goToActivity(activity);
             }
         });
     }
@@ -164,7 +164,7 @@ public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, Sa
 in the activity:
 
 ```java
-public class ItemHandlerActivity extends AppCompatActivity implements ItemHandlerProvider<SampleHandler>, SampleHandler {
+public class ItemPresenterActivity extends AppCompatActivity implements ItemPresenterProvider<SampleHandler>, SampleHandler {
     RecyclerView recyclerView;
     ItemsViewAdapter adapter;
 
@@ -193,7 +193,7 @@ public class ItemHandlerActivity extends AppCompatActivity implements ItemHandle
     }
 
     @Override
-    public SampleHandler getItemHandler() {
+    public SampleHandler getItemPresenter() {
         return this;
     }
 

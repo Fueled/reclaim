@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".hearder.HearderFooterActivity"/>
-        <activity android:name=".handler.ItemHandlerActivity"/>
+        <activity android:name=".handler.ItemPresenterActivity"/>
     </application>
 
 </manifest>

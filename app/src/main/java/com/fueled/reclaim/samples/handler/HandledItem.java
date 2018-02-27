@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.fueled.reclaim.BaseItem;
 import com.fueled.reclaim.BaseViewHolder;
-import com.fueled.reclaim.ItemHandlerProvider;
+import com.fueled.reclaim.ItemPresenterProvider;
 import com.fueled.reclaim.samples.ExampleType;
 
 
@@ -15,16 +15,16 @@ import com.fueled.reclaim.samples.ExampleType;
  * Created by julienFueled on 9/12/16.
  * Copyright (c) 2016 Fueled. All rights reserved.
  */
-public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, SampleHandler, HandledItem.ViewHolder> {
+public class HandledItem extends BaseItem<Class<? extends AppCompatActivity>, SamplePresenter, HandledItem.ViewHolder> {
 
     /**
      * Constructor to use when creating a new card.
      *
      * @param data                the data object for the card
-     * @param itemHandlerProvider the object responsible for providing the correct handler for this
+     * @param itemPresenterProvider the object responsible for providing the correct handler for this
      */
-    public HandledItem(Class<? extends AppCompatActivity> data, ItemHandlerProvider<SampleHandler> itemHandlerProvider) {
-        super(data, itemHandlerProvider);
+    public HandledItem(Class<? extends AppCompatActivity> data, ItemPresenterProvider<SamplePresenter> itemPresenterProvider) {
+        super(data, itemPresenterProvider);
     }
 
     @Override

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.fueled.reclaim.ItemHandlerProvider;
+import com.fueled.reclaim.ItemPresenterProvider;
 import com.fueled.reclaim.ItemsViewAdapter;
 import com.fueled.reclaim.samples.MainActivity;
 import com.fueled.reclaim.samples.R;
@@ -19,8 +19,8 @@ import com.fueled.reclaim.samples.hearder.HearderFooterActivity;
  * Created by julienFueled on 9/12/16.
  * Copyright (c) 2016 Fueled. All rights reserved.
  */
-public class ItemHandlerActivity extends AppCompatActivity implements
-        ItemHandlerProvider<SampleHandler>, SampleHandler {
+public class ItemPresenterActivity extends AppCompatActivity implements
+        ItemPresenterProvider<SamplePresenter>, SamplePresenter {
 
     private RecyclerView recyclerView;
     private ItemsViewAdapter adapter;
@@ -49,7 +49,7 @@ public class ItemHandlerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public SampleHandler getItemHandler() {
+    public SamplePresenter getItemPresenter() {
         return this;
     }
 

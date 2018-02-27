@@ -10,7 +10,7 @@ import android.view.View;
 public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
 
     protected int layoutId;
-    protected ItemHandlerProvider<T2> itemHandlerProvider;
+    protected ItemPresenterProvider<T2> itemPresenterProvider;
 
     private T1 data;
     private T3 viewHolder;
@@ -23,13 +23,13 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      * Constructor to use when creating a new Item.
      *
      * @param data                the data object for the Item
-     * @param itemHandlerProvider the object responsible for providing the correct handler for this
+     * @param itemPresenterProvider the object responsible for providing the correct handler for this
      *                            item
      */
-    public BaseItem(T1 data, ItemHandlerProvider<T2> itemHandlerProvider) {
+    public BaseItem(T1 data, ItemPresenterProvider<T2> itemPresenterProvider) {
         this.layoutId = getLayoutId();
         this.data = data;
-        this.itemHandlerProvider = itemHandlerProvider;
+        this.itemPresenterProvider = itemPresenterProvider;
     }
 
     /**
@@ -125,8 +125,8 @@ public abstract class BaseItem<T1, T2, T3 extends BaseViewHolder> {
      */
     public T2 getItemHandler() {
         T2 itemHandler = null;
-        if (itemHandlerProvider != null) {
-            itemHandler = itemHandlerProvider.getItemHandler();
+        if (itemPresenterProvider != null) {
+            itemHandler = itemPresenterProvider.getItemPresenter();
         }
 
         return itemHandler;

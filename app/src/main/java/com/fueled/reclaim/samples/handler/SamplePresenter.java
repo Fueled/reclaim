@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by julienFueled on 9/12/16.
  * Copyright (c) 2016 Fueled. All rights reserved.
  */
-public interface SampleHandler {
+public interface SamplePresenter {
 
     void goToActivity(Class<? extends AppCompatActivity> activity);
 }
