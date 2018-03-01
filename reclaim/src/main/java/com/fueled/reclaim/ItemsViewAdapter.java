@@ -150,6 +150,13 @@ public class ItemsViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return items.get(position);
     }
 
+    /**
+     * Returns a list of all items currently in the adapter
+     */
+    public List<BaseItem> getItems() {
+        return items;
+    }
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
