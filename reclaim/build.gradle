@@ -1,18 +1,29 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
+apply from: "../extra/gradle/jacoco.gradle"
+apply plugin: 'org.jetbrains.dokka-android'
+
+apply plugin: 'com.diffplug.gradle.spotless'
+spotless {
+    kotlin {
+        target "**/*.kt"
+        ktlint(ktLintVersion)
+    }
+}
 
 group = 'com.github.fueled'
-version = '1.2.2'
+version = '2.0.0'
+
+ext.limits.instruction = 95
+ext.limits.branch = 85
 
 android {
     compileSdkVersion compileSdk
-    buildToolsVersion buildTools
 
     defaultConfig {
         minSdkVersion minSdk
         targetSdkVersion targetSdk
-        versionCode 100
-        versionName "1.0.0"
     }
     buildTypes {
         debug {
@@ -26,42 +37,24 @@ android {
         }
     }
 
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile libraries.recyclerView
+    implementation libraries.recyclerView
+    implementation libraries.kotlinStdLib
 
     //tests
-    testCompile testLibraries.junit
-    testCompile testLibraries.mockito
-    testCompile testLibraries.hamcrest
+    testImplementation testLibraries.junit
+    testImplementation testLibraries.mockito
+    testImplementation testLibraries.mockitoKotlin
+    testImplementation testLibraries.hamcrest
 }
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-
-task javadoc(type: Javadoc) {
-    failOnError  false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-// build a jar with javadoc
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
