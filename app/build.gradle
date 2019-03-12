@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion compileSdk
-    buildToolsVersion buildTools
 
     defaultConfig {
         applicationId appId
@@ -10,6 +10,8 @@ android {
         targetSdkVersion targetSdk
         versionCode 1
         versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -20,12 +22,13 @@ android {
 }
 
 dependencies {
-    compile project(':reclaim')
+    implementation project(':reclaim')
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libraries.appCompat
+    implementation libraries.designSupport
+    implementation libraries.recyclerView
+    implementation libraries.liveData
+    implementation libraries.kotlinStdLib
 
-    testCompile testLibraries.junit
-
-    compile libraries.appCompat
-    compile libraries.recyclerView
+    testImplementation testLibraries.junit
 }

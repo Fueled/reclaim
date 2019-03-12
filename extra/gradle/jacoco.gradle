@@ -1,0 +1,153 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.2"
+}
+
+ext {
+    limits = [
+            'instruction': 0,
+            'branch'     : 0,
+            'line'       : 0,
+            'complexity' : 0,
+            'method'     : 0,
+            'class'      : 0
+    ]
+}
+
+
+project.afterEvaluate {
+    // Grab all build types and product flavors
+    def buildTypes = android.buildTypes.collect { type -> type.name }
+    def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
+
+    // When no product flavors defined, use empty
+    if (!productFlavors) productFlavors.add('')
+
+    productFlavors.each { productFlavorName ->
+        buildTypes.each { buildTypeName ->
+            def sourceName, sourcePath
+            if (!productFlavorName) {
+                sourceName = sourcePath = "${buildTypeName}"
+            } else {
+                sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
+                sourcePath = "${productFlavorName}/${buildTypeName}"
+            }
+            def testTaskName = "test${sourceName.capitalize()}UnitTest"
+
+            // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
+            task "${testTaskName}Coverage"(type: JacocoReport, dependsOn: "$testTaskName") {
+                group = "Reporting"
+                description = "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
+
+                def javaDirectories = fileTree(
+                        dir: "${project.buildDir}/intermediates/classes/${sourcePath}",
+                        excludes: ['**/R.class',
+                                   '**/R$*.class',
+                                   '**/*$ViewInjector*.*',
+                                   '**/*$ViewBinder*.*',
+                                   '**/BuildConfig.*',
+                                   '**/Manifest*.*',
+                                   '**/*Factory*',
+                                   '**/*_MembersInjector*',
+                                   '**/*Module*',
+                                   '**/*Component*',
+                                   '**android**',
+                                   '**/BR.class']
+                )
+                def kotlinDirectories = fileTree(
+                        dir: "${project.buildDir}/tmp/kotlin-classes/${sourcePath}",
+                        excludes: ['**/R.class',
+                                   '**/R$*.class',
+                                   '**/*$ViewInjector*.*',
+                                   '**/*$ViewBinder*.*',
+                                   '**/BuildConfig.*',
+                                   '**/Manifest*.*',
+                                   '**/*Factory*',
+                                   '**/*_MembersInjector*',
+                                   '**/*Module*',
+                                   '**/*Component*',
+                                   '**android**',
+                                   '**/BR.class']
+                )
+
+                classDirectories = files(javaDirectories, kotlinDirectories)
+
+                def coverageSourceDirs = [
+                        "src/main/java",
+                        "src/$productFlavorName/java",
+                        "src/$buildTypeName/java",
+                        "src/main/kotlin",
+                        "src/$productFlavorName/kotlin",
+                        "src/$buildTypeName/kotlin"
+                ]
+                additionalSourceDirs = files(coverageSourceDirs)
+                sourceDirectories = files(coverageSourceDirs)
+                executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+
+                reports {
+                    xml.enabled = true
+                    html.enabled = true
+                }
+
+                doLast {
+                    jacocoTestReport("${testTaskName}Coverage")
+                }
+            }
+        }
+    }
+}
+
+def jacocoTestReport(testTaskName) {
+    def report = file("${jacoco.reportsDir}/${testTaskName}/${testTaskName}.xml")
+    logger.lifecycle("Checking coverage results: ${report}")
+
+    def parser = new XmlParser()
+    parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+    parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+    def results = parser.parse(report)
+
+    def percentage = {
+        def covered = it.'@covered' as Double
+        def missed = it.'@missed' as Double
+        ((covered / (covered + missed)) * 100).round(2)
+    }
+
+    def counters = results.counter
+    def metrics = [:]
+    metrics << [
+            'instruction': percentage(counters.find { (it.'@type' == 'INSTRUCTION') }),
+            'branch'     : percentage(counters.find { (it.'@type' == 'BRANCH') }),
+            'line'       : percentage(counters.find { (it.'@type' == 'LINE') }),
+            'complexity' : percentage(counters.find { (it.'@type' == 'COMPLEXITY') }),
+            'method'     : percentage(counters.find { (it.'@type' == 'METHOD') }),
+            'class'      : percentage(counters.find { (it.'@type' == 'CLASS') })
+    ]
+
+
+    def failures = []
+    def success = []
+    metrics.each {
+        def limit = limits[it.key]
+        if (it.value < limit) {
+            failures.add("- ${it.key} coverage rate is: ${it.value}%, minimum is ${limit}%")
+        }else{
+            success.add("- ${it.key} coverage rate is: ${it.value}%")
+        }
+    }
+
+    if (failures) {
+        logger.quiet("------------------ Code Coverage Failed -----------------------")
+        failures.each {
+            logger.quiet(it)
+        }
+        logger.quiet("---------------------------------------------------------------")
+        throw new GradleException("Code coverage failed")
+    } else {
+        logger.quiet("------------------ Code Coverage Success -----------------------")
+        success.each {
+            logger.quiet(it)
+        }
+        logger.quiet("---------------------------------------------------------------")
+    }
+}
