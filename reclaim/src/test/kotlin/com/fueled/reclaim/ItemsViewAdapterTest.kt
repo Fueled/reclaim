@@ -35,7 +35,7 @@ class ItemsViewAdapterTest {
 
     @Before
     fun setup() {
-        itemsAdapter = spy(ItemsViewAdapter(context))
+        itemsAdapter = spy(ItemsViewAdapter())
 
         doReturn(diffChecker).whenever(itemsAdapter).getDiffChecker(any(), any())
     }
@@ -253,13 +253,15 @@ class ItemsViewAdapterTest {
         // Given
         doNothing().whenever(itemsAdapter).notifyItemRangeInserted(any(), any())
 
-        val viewGroup: ViewGroup = mock()
+        val viewGroup: ViewGroup = mock {
+            on { context } doReturn context
+        }
         val view: View = mock()
         val layoutInflater: LayoutInflater = mock {
             on { inflate(TestsMockFactory.TEST_2_ADAPTER_ID, viewGroup, false) } doReturn view
         }
 
-        doReturn(layoutInflater).whenever(itemsAdapter).getLayoutInflater()
+        doReturn(layoutInflater).whenever(itemsAdapter).getLayoutInflater(context)
 
         val viewHolder: BaseViewHolder = mock()
         val viewHolder2: BaseViewHolder = mock()
@@ -282,7 +284,7 @@ class ItemsViewAdapterTest {
         val vh = itemsAdapter.onCreateViewHolder(viewGroup, TestsMockFactory.TEST_2_ADAPTER_ID)
 
         // Then
-        verify(itemsAdapter).getLayoutInflater()
+        verify(itemsAdapter).getLayoutInflater(context)
         verify(layoutInflater).inflate(TestsMockFactory.TEST_2_ADAPTER_ID, viewGroup, false)
         verify(type2AdapterItem).onCreateViewHolder(view)
         verify(type1AdapterItem, never()).onCreateViewHolder(view)
