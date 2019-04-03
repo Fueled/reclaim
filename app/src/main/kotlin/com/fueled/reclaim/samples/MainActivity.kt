@@ -17,7 +17,7 @@ import com.fueled.reclaim.samples.notes.NotesStorage
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ItemsViewAdapter
+    private val adapter = ItemsViewAdapter()
 
     private val cardColors = listOf(0xffe1f5fe, 0xfffffde7, 0xfffbe9e7, 0xffefebe9, 0xfff3e5f5)
 
@@ -35,9 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = layoutManager
 
-
         //set adapter
-        adapter = ItemsViewAdapter(this)
         recyclerView.adapter = adapter
 
         subscribeToNoteUpdates()

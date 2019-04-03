@@ -26,7 +26,6 @@ import java.util.ArrayList
 
 @Suppress("unused", "MemberVisibilityCanBePrivate") // Public API.
 open class ItemsViewAdapter @JvmOverloads constructor(
-    private val context: Context,
     private val items: MutableList<AdapterItem<*>> = ArrayList()
 ) : RecyclerView.Adapter<BaseViewHolder>(), Iterable<AdapterItem<*>> {
 
@@ -165,7 +164,7 @@ open class ItemsViewAdapter @JvmOverloads constructor(
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BaseViewHolder {
         for (item in items) {
             if (item.layoutId == viewType) {
-                val view = getLayoutInflater()
+                val view = getLayoutInflater(viewGroup.context)
                     .inflate(item.layoutId, viewGroup, false)
 
                 return item.onCreateViewHolder(view)
@@ -196,5 +195,5 @@ open class ItemsViewAdapter @JvmOverloads constructor(
     ) = DiffChecker(oldItemsList, newItemsList)
 
     @VisibleForTesting
-    internal fun getLayoutInflater() = LayoutInflater.from(context)
+    internal fun getLayoutInflater(context: Context) = LayoutInflater.from(context)
 }
