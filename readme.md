@@ -26,7 +26,7 @@ Have your RecyclerView use the adapter [ItemViewAdapter](reclaim/src/main/kotlin
 ```kotlin
 val manager = LinearLayoutManager(this)
 recyclerView.setLayoutManager(manager)
-adapter = ItemsViewAdapter(this)
+adapter = ItemsViewAdapter()
 recyclerView.setAdapter(adapter)
 ```
 
@@ -56,7 +56,7 @@ class PlanetViewHolder(view: View) : BaseViewHolder(view) {
 Simply add instances of your adapter item to your adapter by calling [ItemViewAdapter.addItem(item: AdapterItem)](reclaim/src/main/kotlin/com/fueled/reclaim/ItemsViewAdapter.kt#L113) or [ItemViewAdapter.addItemsList(items: List<AdapterItem<*>)](reclaim/src/main/kotlin/com/fueled/reclaim/ItemsViewAdapter.kt#L45)
 
 ```kotlin
-adapter = ItemsViewAdapter(this)
+adapter = ItemsViewAdapter()
 recyclerView.setAdapter(adapter)
 for (planet in planets) {
     adapter.addItem(PlanetItem(planet))
@@ -86,7 +86,7 @@ class PlanetItem(private val planet: String) : AdapterItem<PlanetItemViewHolder>
 
 Then add them to your view adapter:
 ```kotlin
-adapter = ItemsViewAdapter(this)
+adapter = ItemsViewAdapter()
 recyclerView.setAdapter(adapter)
 
 adapter.addItem(HeaderItem("Header YEAH!"))
@@ -125,7 +125,7 @@ class PlanetViewHolder(view: View) : BaseViewHolder(view) {
 in your activity:
 
 ```kotlin
-adapter = ItemsViewAdapter(this)
+adapter = ItemsViewAdapter()
 recyclerView.setAdapter(adapter)
 
 val handler = { planet: String -> displayPlanet(planet) }
