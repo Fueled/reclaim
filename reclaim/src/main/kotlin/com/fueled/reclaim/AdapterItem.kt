@@ -46,7 +46,7 @@ abstract class AdapterItem<T2 : BaseViewHolder> {
      * This method should update the contents of the [ViewHolder#itemView][android.support.v7.widget.RecyclerView.ViewHolder.itemView]
      * to reflect the data of this item.
      */
-    abstract fun updateItemViews(viewHolder: T2)
+    open fun updateItemViews(viewHolder: T2) {}
 
     /**
      * This method should update the contents of the [ViewHolder#itemView][android.support.v7.widget.RecyclerView.ViewHolder.itemView]
