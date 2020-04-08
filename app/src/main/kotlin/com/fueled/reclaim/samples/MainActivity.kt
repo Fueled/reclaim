@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fueled.reclaim.ItemsViewAdapter
 import com.fueled.reclaim.samples.items.HeaderAdapterItem
 import com.fueled.reclaim.samples.items.NoteAdapterItem
+import com.fueled.reclaim.samples.items.LoadingAdapterItem
 import com.fueled.reclaim.samples.notes.Note
 import com.fueled.reclaim.samples.notes.NotesStorage
 
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         val items = listOf(HeaderAdapterItem("Elliot Alderson")) + notes
             .mapIndexed { index, note ->
                 NoteAdapterItem(note, cardColors[index % cardColors.size].toInt(), ::onDeleteNote)
-            }
+            } + listOf(LoadingAdapterItem())
 
         adapter.replaceItems(
             items = items,
