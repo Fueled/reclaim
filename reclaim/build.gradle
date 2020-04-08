@@ -13,7 +13,7 @@ spotless {
 }
 
 group = 'com.github.fueled'
-version = '2.1.0'
+version = '2.1.1'
 
 ext.limits.instruction = 95
 ext.limits.branch = 85
